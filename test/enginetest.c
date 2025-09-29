@@ -359,7 +359,8 @@ static int test_x509_dup_w_engine(void)
 {
     ENGINE *e = NULL;
     X509 *cert = NULL, *dupcert = NULL;
-    X509_PUBKEY *pubkey, *duppubkey = NULL;
+    const X509_PUBKEY *pubkey;
+    X509_PUBKEY *duppubkey = NULL;
     int ret = 0;
     BIO *b = NULL;
     RSA_METHOD *rsameth = NULL;

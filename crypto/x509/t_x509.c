@@ -141,7 +141,7 @@ int X509_print_ex(BIO *bp, X509 *x, unsigned long nmflags,
             goto err;
     }
     if (!(cflag & X509_FLAG_NO_PUBKEY)) {
-        X509_PUBKEY *xpkey = X509_get_X509_PUBKEY(x);
+        const X509_PUBKEY *xpkey = X509_get_X509_PUBKEY(x);
         ASN1_OBJECT *xpoid;
         X509_PUBKEY_get0_param(&xpoid, NULL, NULL, NULL, xpkey);
         if (BIO_write(bp, "        Subject Public Key Info:\n", 33) <= 0)
