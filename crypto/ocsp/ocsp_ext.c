@@ -44,7 +44,7 @@ int OCSP_REQUEST_get_ext_by_critical(OCSP_REQUEST *x, int crit, int lastpos)
             (x->tbsRequest.requestExtensions, crit, lastpos));
 }
 
-X509_EXTENSION *OCSP_REQUEST_get_ext(OCSP_REQUEST *x, int loc)
+const X509_EXTENSION *OCSP_REQUEST_get_ext(OCSP_REQUEST *x, int loc)
 {
     return X509v3_get_ext(x->tbsRequest.requestExtensions, loc);
 }
@@ -66,7 +66,7 @@ int OCSP_REQUEST_add1_ext_i2d(OCSP_REQUEST *x, int nid, void *value, int crit,
                            crit, flags);
 }
 
-int OCSP_REQUEST_add_ext(OCSP_REQUEST *x, X509_EXTENSION *ex, int loc)
+int OCSP_REQUEST_add_ext(OCSP_REQUEST *x, const X509_EXTENSION *ex, int loc)
 {
     return (X509v3_add_ext(&(x->tbsRequest.requestExtensions), ex, loc) !=
             NULL);
@@ -96,7 +96,7 @@ int OCSP_ONEREQ_get_ext_by_critical(OCSP_ONEREQ *x, int crit, int lastpos)
             (x->singleRequestExtensions, crit, lastpos));
 }
 
-X509_EXTENSION *OCSP_ONEREQ_get_ext(OCSP_ONEREQ *x, int loc)
+const X509_EXTENSION *OCSP_ONEREQ_get_ext(OCSP_ONEREQ *x, int loc)
 {
     return X509v3_get_ext(x->singleRequestExtensions, loc);
 }
@@ -118,7 +118,7 @@ int OCSP_ONEREQ_add1_ext_i2d(OCSP_ONEREQ *x, int nid, void *value, int crit,
                            flags);
 }
 
-int OCSP_ONEREQ_add_ext(OCSP_ONEREQ *x, X509_EXTENSION *ex, int loc)
+int OCSP_ONEREQ_add_ext(OCSP_ONEREQ *x, const X509_EXTENSION *ex, int loc)
 {
     return (X509v3_add_ext(&(x->singleRequestExtensions), ex, loc) != NULL);
 }
@@ -150,7 +150,7 @@ int OCSP_BASICRESP_get_ext_by_critical(OCSP_BASICRESP *x, int crit,
             (x->tbsResponseData.responseExtensions, crit, lastpos));
 }
 
-X509_EXTENSION *OCSP_BASICRESP_get_ext(OCSP_BASICRESP *x, int loc)
+const X509_EXTENSION *OCSP_BASICRESP_get_ext(OCSP_BASICRESP *x, int loc)
 {
     return X509v3_get_ext(x->tbsResponseData.responseExtensions, loc);
 }
@@ -174,7 +174,7 @@ int OCSP_BASICRESP_add1_ext_i2d(OCSP_BASICRESP *x, int nid, void *value,
                            value, crit, flags);
 }
 
-int OCSP_BASICRESP_add_ext(OCSP_BASICRESP *x, X509_EXTENSION *ex, int loc)
+int OCSP_BASICRESP_add_ext(OCSP_BASICRESP *x, const X509_EXTENSION *ex, int loc)
 {
     return (X509v3_add_ext(&(x->tbsResponseData.responseExtensions), ex, loc)
             != NULL);
@@ -204,7 +204,7 @@ int OCSP_SINGLERESP_get_ext_by_critical(OCSP_SINGLERESP *x, int crit,
     return X509v3_get_ext_by_critical(x->singleExtensions, crit, lastpos);
 }
 
-X509_EXTENSION *OCSP_SINGLERESP_get_ext(OCSP_SINGLERESP *x, int loc)
+const X509_EXTENSION *OCSP_SINGLERESP_get_ext(OCSP_SINGLERESP *x, int loc)
 {
     return X509v3_get_ext(x->singleExtensions, loc);
 }
@@ -226,7 +226,7 @@ int OCSP_SINGLERESP_add1_ext_i2d(OCSP_SINGLERESP *x, int nid, void *value,
     return X509V3_add1_i2d(&x->singleExtensions, nid, value, crit, flags);
 }
 
-int OCSP_SINGLERESP_add_ext(OCSP_SINGLERESP *x, X509_EXTENSION *ex, int loc)
+int OCSP_SINGLERESP_add_ext(OCSP_SINGLERESP *x, const X509_EXTENSION *ex, int loc)
 {
     return (X509v3_add_ext(&(x->singleExtensions), ex, loc) != NULL);
 }
@@ -317,7 +317,7 @@ int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *bs)
      */
 
     int req_idx, resp_idx;
-    X509_EXTENSION *req_ext, *resp_ext;
+    const X509_EXTENSION *req_ext, *resp_ext;
     req_idx = OCSP_REQUEST_get_ext_by_NID(req, NID_id_pkix_OCSP_Nonce, -1);
     resp_idx = OCSP_BASICRESP_get_ext_by_NID(bs, NID_id_pkix_OCSP_Nonce, -1);
     /* Check both absent */
@@ -346,7 +346,7 @@ int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *bs)
 
 int OCSP_copy_nonce(OCSP_BASICRESP *resp, OCSP_REQUEST *req)
 {
-    X509_EXTENSION *req_ext;
+    const X509_EXTENSION *req_ext;
     int req_idx;
     /* Check for nonce in request */
     req_idx = OCSP_REQUEST_get_ext_by_NID(req, NID_id_pkix_OCSP_Nonce, -1);
