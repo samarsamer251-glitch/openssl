@@ -935,7 +935,7 @@ static int add_ocsp_serial(OCSP_REQUEST **req, char *serial,
 {
     OCSP_CERTID *id;
     const X509_NAME *iname;
-    ASN1_BIT_STRING *ikey;
+    const ASN1_BIT_STRING *ikey;
     ASN1_INTEGER *sno;
 
     if (issuer == NULL) {
