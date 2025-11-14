@@ -7,7 +7,9 @@
  * https://www.openssl.org/source/license.html
  */
 
-/* Tests for X509 time functions */
+/* We are testing deprecated api */
+#define OPENSSL_SUPPRESS_DEPRECATED
+#include "internal/deprecated.h"
 
 #include <string.h>
 #include <time.h>
@@ -134,6 +136,7 @@ static TESTDATA_FORMAT x509_format_tests[] = {
     },
 };
 
+#if !defined(OPENSSL_NO_DEPRECATED_4_0)
 static TESTDATA x509_cmp_tests[] = {
     {
         "20170217180154Z", V_ASN1_GENERALIZEDTIME,
@@ -355,6 +358,7 @@ finish:
 
     return res;
 }
+#endif /* !defined(OPENSSL_NO_DEPRECATED_4_0) */
 
 static int test_x509_time(int idx)
 {
