@@ -415,12 +415,10 @@ int ASN1_TIME_set_string_X509(ASN1_TIME *s, const char *str)
          * rejected. Instead, two digits of the year is removed from
          * start of the input string so the result is a UTC time.
          */
-        const char *timestring = str;
-
         if (is_utc(tm.tm_year) && len == 15)
-            timestring += 2;
+            return ASN1_TIME_set_string(s, str + 2);
 
-        ASN1_TIME_set_string(s, timestring);
+        return ASN1_TIME_set_string(s, str);
     }
 
     return 1;
