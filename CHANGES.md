@@ -32,6 +32,10 @@ OpenSSL 4.0
 
 ### Changes between 3.6 and 4.0 [xx XXX xxxx]
 
+ * The ASN1_STRING_FLAG_X509_TIME define has been removed.
+
+   *Bob Beck*
+
  * various function parameters have been constified,
    in particular for X509-related functions.
 
